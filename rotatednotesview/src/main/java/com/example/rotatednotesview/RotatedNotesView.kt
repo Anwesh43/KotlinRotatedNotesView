@@ -105,6 +105,9 @@ class RotatedNotesView (ctx : Context) : View(ctx) {
             canvas.save()
             canvas.translate(-size/2, -size/2)
             canvas.drawRect(0f, 0f, w * state.scales[0], barH, paint)
+            paint.color = Color.parseColor("#212121")
+            paint.strokeWidth = Math.min(w, h) / 60
+            paint.strokeCap = Paint.Cap.ROUND
             val hSize : Float = h / 10
             for (i in 1..9) {
                 canvas.save()
@@ -114,6 +117,29 @@ class RotatedNotesView (ctx : Context) : View(ctx) {
             }
             canvas.restore()
             canvas.restore()
+        }
+    }
+
+    data class Renderer (var view : RotatedNotesView) {
+
+        private val animator : Animator = Animator(view)
+
+        private val rotatedNotes : RotatedNotes = RotatedNotes(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            rotatedNotes.draw(canvas, paint)
+            animator.animate {
+                rotatedNotes.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            rotatedNotes.startUpdating {
+                animator.start()
+            }
         }
     }
 }
