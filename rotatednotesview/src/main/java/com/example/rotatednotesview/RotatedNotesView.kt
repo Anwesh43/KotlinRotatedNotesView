@@ -151,6 +151,9 @@ class RotatedNotesView (ctx : Context) : View(ctx) {
             animator.animate {
                 rotatedNotes.update {
                     animator.stop()
+                    when (it) {
+                        1f -> view.onRotatedListener?.onRotate?.invoke()
+                    }
                 }
             }
         }
