@@ -81,4 +81,39 @@ class RotatedNotesView (ctx : Context) : View(ctx) {
 
     }
 
+    data class RotatedNotes(var i : Int, val state : State = State()) {
+
+        fun update(stopcb : (Float) -> Unit) {
+            state.update(stopcb)
+        }
+
+        fun startUpdating(startcb : () -> Unit) {
+            state.startUpdating(startcb)
+        }
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            val w : Float = canvas.width.toFloat()
+            val h : Float = canvas.height.toFloat()
+            val size : Float = 2 * Math.min(w, h)/3
+            val barH : Float = Math.min(w,h)/15
+            canvas.save()
+            canvas.translate(w / 2, h / 2)
+            canvas.rotate(-30f * state.scales[2])
+            paint.color = Color.WHITE
+            canvas.drawRect(-size/2, -size/2, size/2, size/2, paint)
+            paint.color = Color.parseColor("#FFCA28")
+            canvas.save()
+            canvas.translate(-size/2, -size/2)
+            canvas.drawRect(0f, 0f, w * state.scales[0], barH, paint)
+            val hSize : Float = h / 10
+            for (i in 1..9) {
+                canvas.save()
+                canvas.translate(0f, hSize * i)
+                canvas.drawLine(0f, 0f, w * state.scales[1], 0f, paint)
+                canvas.restore()
+            }
+            canvas.restore()
+            canvas.restore()
+        }
+    }
 }
