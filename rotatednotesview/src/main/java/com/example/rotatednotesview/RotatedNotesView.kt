@@ -113,26 +113,27 @@ class RotatedNotesView (ctx : Context) : View(ctx) {
         fun draw(canvas : Canvas, paint : Paint) {
             val w : Float = canvas.width.toFloat()
             val h : Float = canvas.height.toFloat()
-            val size : Float = 2 * Math.min(w, h) / 3
-            val barH : Float = Math.min(w,h) / 9
+            val sizeW : Float = 2 * w / 3
+            val sizeH : Float = 2 * h / 3
+            val barH : Float = h / 9
             val deg : Float = -15f
             canvas.save()
             canvas.translate(w / 2, h / 2)
             canvas.rotate(deg * state.scales[2])
             paint.color = Color.WHITE
-            canvas.drawRect(-size/2, -size/2, size/2, size/2, paint)
+            canvas.drawRect(-sizeW/2, -sizeH/2, sizeW/2, sizeH/2, paint)
             paint.color = Color.parseColor("#FFCA28")
             canvas.save()
-            canvas.translate(-size/2, -size/2)
-            canvas.drawRect(0f, 0f, size * state.scales[0], barH, paint)
+            canvas.translate(-sizeW/2, -sizeH/2)
+            canvas.drawRect(0f, 0f, sizeW * state.scales[0], barH, paint)
             paint.color = Color.parseColor("#212121")
             paint.strokeWidth = Math.min(w, h) / 60
             paint.strokeCap = Paint.Cap.ROUND
-            val hSize : Float = (size - barH) / 10
+            val hSize : Float = (sizeH - barH) / 10
             for (i in 1..9) {
                 canvas.save()
                 canvas.translate(0f, barH + hSize * i)
-                canvas.drawLine(0f, 0f, size * state.scales[1], 0f, paint)
+                canvas.drawLine(0f, 0f, sizeW * state.scales[1], 0f, paint)
                 canvas.restore()
             }
             canvas.restore()
