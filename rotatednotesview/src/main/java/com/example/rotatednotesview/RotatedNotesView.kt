@@ -115,9 +115,10 @@ class RotatedNotesView (ctx : Context) : View(ctx) {
             val h : Float = canvas.height.toFloat()
             val size : Float = 2 * Math.min(w, h) / 3
             val barH : Float = Math.min(w,h) / 9
+            val deg : Float = -15f
             canvas.save()
             canvas.translate(w / 2, h / 2)
-            canvas.rotate(-30f * state.scales[2])
+            canvas.rotate(deg * state.scales[2])
             paint.color = Color.WHITE
             canvas.drawRect(-size/2, -size/2, size/2, size/2, paint)
             paint.color = Color.parseColor("#FFCA28")
