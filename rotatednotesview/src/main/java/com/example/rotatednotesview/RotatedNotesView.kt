@@ -16,6 +16,12 @@ class RotatedNotesView (ctx : Context) : View(ctx) {
 
     private val renderer : Renderer = Renderer(this)
 
+    private var onRotatedListener : OnRotatedListener? = null
+
+    fun addOnRotateListener(onRotate : () -> Unit) {
+        onRotatedListener = OnRotatedListener(onRotate)
+    }
+
     override fun onDraw(canvas : Canvas) {
         renderer.render(canvas, paint)
     }
@@ -163,4 +169,6 @@ class RotatedNotesView (ctx : Context) : View(ctx) {
             return view
         }
     }
+
+    data class OnRotatedListener(var onRotate : () -> Unit)
 }
