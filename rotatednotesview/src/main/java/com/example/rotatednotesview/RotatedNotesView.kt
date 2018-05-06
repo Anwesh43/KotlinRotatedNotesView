@@ -4,6 +4,7 @@ package com.example.rotatednotesview
  * Created by anweshmishra on 06/05/18.
  */
 
+import android.app.Activity
 import android.graphics.*
 import android.view.View
 import android.view.MotionEvent
@@ -142,6 +143,14 @@ class RotatedNotesView (ctx : Context) : View(ctx) {
             rotatedNotes.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : RotatedNotesView {
+            val view : RotatedNotesView = RotatedNotesView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
