@@ -3,14 +3,18 @@ package com.example.anweshmishra.kotlinrotatednotesview
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.Toast
 import com.example.rotatednotesview.RotatedNotesView
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        RotatedNotesView.create(this)
+        val view : RotatedNotesView = RotatedNotesView.create(this)
         fullScreen()
+        view.addOnRotateListener {
+            Toast.makeText(this, "Rotation Complete", Toast.LENGTH_LONG).show()
+        }
     }
 }
 
